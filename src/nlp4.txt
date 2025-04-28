@@ -1,0 +1,39 @@
+import nltk 
+from nltk.corpus import wordnet as wn
+nltk.download('omw-1.4')
+nltk.download('wordnet')
+
+def get_relation(w1,w2):
+    syn1 = wn.synsets(w1)
+    syn2 = wn.synsets(w2)
+    syn1=syn1[0]
+    syn2=syn2[0]
+
+    synonym1 = [lemma.name() for lemma in syn1.lemmas()]
+    antonym1 = [ant.name() for lemma in syn1.lemmas() for ant in lemma.antonyms()]
+    synonym2 = [lemma.name() for lemma in syn2.lemmas()]
+    antonym2 = [ant.name() for lemma in syn2.lemmas() for ant in lemma.antonyms()]
+    
+    relations = {
+        'word 1':w1,
+        'word 2':w2,
+        'Word 1 defination':syn1.definition(),
+        'Word 2 defination':syn2.definition(),
+        'Similarity ':syn1.wup_similarity(syn2),
+        'Hypernyms of word 1':[lemma.name() for hypernym in syn1.hypernyms()for lemma in hypernym.lemmas()],
+        'Hypernyms of word 2':[lemma.name() for hypernym in syn1.hypernyms()for lemma in hypernym.lemmas()],
+        'Hyponyms of word 1':[lemma.name() for hyponym in syn1.hyponyms()for lemma in hyponym.lemmas()],
+        'Hyponyms of word 1':[lemma.name() for hyponym in syn2.hyponyms()for lemma in hyponym.lemmas()],
+        'Synonym of word 1': list(synonym1),
+        'Synonym of word 2': list(synonym2),
+        'Antonym of word 1': list(antonym1),
+        'Antonym of word 2': list(antonym2)
+    }
+    return relations
+
+
+w1 = 'good'
+w2 = 'happy'
+sem = get_relation(w1,w2)
+for key,value in sem.items():
+    print(f"{key} :: {value}")

@@ -1,0 +1,17 @@
+# Define root words
+words = ["happy", "believe", "play", "care", "move"]
+
+
+prefixes = ["un", "dis", "re", "un", "re"]
+suffixes = ["", "", "", "", ""]
+delete_last = [1, 1, 1, 1, 1]  # how many letters to delete
+
+print(f"{'Root Word':<10} {'Add':<10} {'New Word (Addition)':<20} {'Delete':<10} {'New Word (Deletion)':<20}")
+print("-" * 80)
+
+for i in range(len(words)):
+    root = words[i]
+    add = prefixes[i] + suffixes[i]
+    added_word = prefixes[i] + root + suffixes[i]
+    deleted_word = root[:-delete_last[i]]
+    print(f"{root:<10} {add:<10} {added_word:<20} {delete_last[i]} letters   {deleted_word:<20}")
